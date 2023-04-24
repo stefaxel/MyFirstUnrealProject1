@@ -14,7 +14,7 @@ ABullet::ABullet()
 	BulletMesh = CreateDefaultSubobject<UStaticMeshComponent>("BulletMesh");
 	SetRootComponent(BulletMesh);
 
-	BulletMovement = CreateDefaultSubobject<UMovementComponent>("BulletMovement");
+	BulletMovement = CreateDefaultSubobject<UProjectileMovementComponent>("BulletMovement");
 
 }
 

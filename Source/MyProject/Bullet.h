@@ -21,7 +21,7 @@ protected:
 	class UStaticMeshComponent* BulletMesh;
 
 	UPROPERTY(EditAnywhere, Category = "Components")
-	class UMovementComponent* BulletMovement;
+	class UProjectileMovementComponent* BulletMovement;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
