@@ -84,6 +84,9 @@ void AMyProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMyProjectCharacter::Look);
 
+		//Shooting
+		EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Triggered, this, &AMyProjectCharacter::Shoot);
+
 	}
 
 }
@@ -122,6 +125,11 @@ void AMyProjectCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void AMyProjectCharacter::Shoot()
+{
+	UE_LOG(LogTemp, Warning, TEXT("firing bullet"));
 }
 
 
