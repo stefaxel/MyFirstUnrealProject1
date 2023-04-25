@@ -41,6 +41,9 @@ class AMyProjectCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* ShootAction;
 
+	UPROPERTY(EditAnywhere, Category = "Shooting")
+	TSubclassOf<class ABullet> BulletBP;
+
 public:
 	AMyProjectCharacter();
 	

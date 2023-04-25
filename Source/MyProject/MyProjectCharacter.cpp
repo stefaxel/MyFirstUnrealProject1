@@ -9,6 +9,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Bullet.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -129,10 +130,18 @@ void AMyProjectCharacter::Look(const FInputActionValue& Value)
 
 void AMyProjectCharacter::Shoot(const FInputActionValue& Value)
 {
+	FTransform SpawnTransform = GetActorTransform();
+	//SpawnTransform.TransformPosition(FVector(0.0f, 0.0f, 100.0f));
+
+	SpawnTransform.SetLocation(FollowCamera->GetComponentRotation().Vector() * 200.0f + GetActorLocation());
+
+	FActorSpawnParameters SpawnParams;
+
 	const bool CurrentValue = Value.Get<bool>();
 	if (CurrentValue) 
 	{
 		UE_LOG(LogTemp, Warning, TEXT("firing bullet"));
+		GetWorld()->SpawnActor<ABullet>(BulletBP, SpawnTransform, SpawnParams);
 	}
 	
 }
