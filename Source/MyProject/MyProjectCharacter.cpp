@@ -127,9 +127,14 @@ void AMyProjectCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-void AMyProjectCharacter::Shoot()
+void AMyProjectCharacter::Shoot(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("firing bullet"));
+	const bool CurrentValue = Value.Get<bool>();
+	if (CurrentValue) 
+	{
+		UE_LOG(LogTemp, Warning, TEXT("firing bullet"));
+	}
+	
 }
 
 

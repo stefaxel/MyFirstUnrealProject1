@@ -54,7 +54,7 @@ protected:
 	void Look(const FInputActionValue& Value);
 
 	/* Called for shooting input */
-	void Shoot();
+	void Shoot(const FInputActionValue& Value);
 			
 
 protected:
