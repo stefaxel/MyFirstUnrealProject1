@@ -37,12 +37,37 @@ class AMyProjectCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;
 
-	/* Shoot Input Action */
+	/** Shoot Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* ShootAction;
 
 	UPROPERTY(EditAnywhere, Category = "Shooting")
 	TSubclassOf<class ABullet> BulletBP;
+
+	/** Character Current Level*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
+	int currentLevel;
+
+	/** Character Upgrade Points*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
+	int upgradePoints;
+
+	/** Character Strength Points*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
+	int strengthPoints;
+
+	/** Character Intelligence Points*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
+	int intelligencePoints;
+
+	/** Character Charisma Points*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
+	int charismaPoints;
+
+	/** Character Stealth Points*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
+	int stealthPoints;
+
 
 public:
 	AMyProjectCharacter();
