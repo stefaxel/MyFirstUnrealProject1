@@ -68,6 +68,18 @@ class AMyProjectCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
 	int stealthPoints;
 
+	/** Character Experience Points*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
+    float experiencePoints;
+
+	/** Character to level up Points*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
+	float experienceToLevelUp;
+
+	/** Character Stealth Points*/
+	UFUNCTION(BlueprintCallable, Category = "Stats")
+	void GainExperience(float _expAmount);
+
 
 public:
 	AMyProjectCharacter();

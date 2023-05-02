@@ -54,6 +54,9 @@ AMyProjectCharacter::AMyProjectCharacter()
 	currentLevel = 1;
 	upgradePoints = 5;
 
+	experiencePoints = 0.0f;
+	experienceToLevelUp = 2000.0f;
+
 	strengthPoints = 1;
 	intelligencePoints = 1;
 	charismaPoints = 1;
@@ -152,6 +155,20 @@ void AMyProjectCharacter::Shoot(const FInputActionValue& Value)
 		GetWorld()->SpawnActor<ABullet>(BulletBP, SpawnTransform, SpawnParams);
 	}
 	
+}
+
+void AMyProjectCharacter::GainExperience(float _expAmount) 
+{
+	UE_LOG(LogTemp, Warning, TEXT("Player gaining experience for %f points"), _expAmount);
+	experiencePoints += _expAmount;
+
+	if (experiencePoints >= experienceToLevelUp) 
+	{
+		++currentLevel;
+		experiencePoints -= experienceToLevelUp;
+		experienceToLevelUp += 500.0f;
+	}
+
 }
 
 
