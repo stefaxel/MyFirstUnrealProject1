@@ -61,6 +61,8 @@ AMyProjectCharacter::AMyProjectCharacter()
 	intelligencePoints = 1;
 	charismaPoints = 1;
 	stealthPoints = 1;
+
+	hasPunched = false;
 }
 
 void AMyProjectCharacter::BeginPlay()
@@ -98,6 +100,8 @@ void AMyProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 
 		//Shooting
 		EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Triggered, this, &AMyProjectCharacter::Shoot);
+
+		EnhancedInputComponent->BindAction(MeleePunchAction, ETriggerEvent::Triggered, this, &AMyProjectCharacter::MeleePunch);
 
 	}
 
@@ -155,6 +159,20 @@ void AMyProjectCharacter::Shoot(const FInputActionValue& Value)
 		GetWorld()->SpawnActor<ABullet>(BulletBP, SpawnTransform, SpawnParams);
 	}
 	
+}
+
+void AMyProjectCharacter::MeleePunch(const FInputActionValue& Value) 
+{
+	const bool CurrentValue = Value.Get<bool>();
+	if (CurrentValue) 
+	{
+		UE_LOG(LogTemp, Warning, TEXT("punching"));
+		hasPunched = true;
+	}
+	else 
+	{
+		hasPunched = false;
+	}
 }
 
 void AMyProjectCharacter::GainExperience(float _expAmount) 

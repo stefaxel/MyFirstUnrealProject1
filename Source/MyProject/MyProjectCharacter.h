@@ -44,6 +44,10 @@ class AMyProjectCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, Category = "Shooting")
 	TSubclassOf<class ABullet> BulletBP;
 
+	/** Shoot Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+    class UInputAction* MeleePunchAction;
+
 	/** Character Current Level*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
 	int currentLevel;
@@ -76,6 +80,10 @@ class AMyProjectCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
 	float experienceToLevelUp;
 
+	/** Character to level up Points*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack", meta = (AllowPrivateAccess = "true"))
+	bool hasPunched;
+
 	/** Character Stealth Points*/
 	UFUNCTION(BlueprintCallable, Category = "Stats")
 	void GainExperience(float _expAmount);
@@ -95,6 +103,9 @@ protected:
 
 	/* Called for shooting input */
 	void Shoot(const FInputActionValue& Value);
+
+	/** Called for melee attack */
+	void MeleePunch(const FInputActionValue& Value);
 			
 
 protected:
