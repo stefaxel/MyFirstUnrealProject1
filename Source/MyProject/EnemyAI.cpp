@@ -11,6 +11,8 @@ AEnemyAI::AEnemyAI()
 
 	//Set default values for variables of Enemy
 	health = 1.0f;
+	hasTakenDamage = false;
+	isDead = false;
 }
 
 // Called when the game starts or when spawned
@@ -30,5 +32,14 @@ void AEnemyAI::Tick(float DeltaTime)
 void AEnemyAI::TakeDamage(float _damage) 
 {
 	health -= _damage;
+
+	if (health <= 0.0f)
+	{
+		isDead = true;
+	}
+	else
+	{
+		hasTakenDamage = true;
+	}
 }
 

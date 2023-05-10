@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "GameFramework/Character.h"
 #include "EnemyAI.generated.h"
 
 UCLASS()
-class MYPROJECT_API AEnemyAI : public AActor
+class MYPROJECT_API AEnemyAI : public ACharacter
 {
 	GENERATED_BODY()
 	
@@ -24,6 +24,12 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = Enemy)
 	float health;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = Enemy)
+	bool hasTakenDamage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = Enemy)
+    bool isDead;
 
 public:	
 	// Called every frame
