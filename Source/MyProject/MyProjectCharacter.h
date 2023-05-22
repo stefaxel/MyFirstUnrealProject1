@@ -5,10 +5,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
+#include "DefaultWeapon.h"
 #include "MyProjectCharacter.generated.h"
 
-
-UCLASS(config=Game)
+UCLASS(config = Game)
 class AMyProjectCharacter : public ACharacter
 {
 	GENERATED_BODY()
@@ -20,7 +20,7 @@ class AMyProjectCharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
-	
+
 	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputMappingContext* DefaultMappingContext;
@@ -46,7 +46,7 @@ class AMyProjectCharacter : public ACharacter
 
 	/** Shoot Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-    class UInputAction* MeleePunchAction;
+	class UInputAction* MeleePunchAction;
 
 	/** Character Current Level*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
@@ -74,7 +74,7 @@ class AMyProjectCharacter : public ACharacter
 
 	/** Character Experience Points*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
-    float experiencePoints;
+	float experiencePoints;
 
 	/** Character to level up Points*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
@@ -88,10 +88,17 @@ class AMyProjectCharacter : public ACharacter
 	UFUNCTION(BlueprintCallable, Category = "Stats")
 	void GainExperience(float _expAmount);
 
+	/** Character Experience Points*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
+	float attackSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon", meta = (AllowPrivateAccess = "true"))
+	ADefaultWeapon* currentWeapon;
+
 
 public:
 	AMyProjectCharacter();
-	
+
 
 protected:
 
@@ -106,12 +113,12 @@ protected:
 
 	/** Called for melee attack */
 	void MeleePunch(const FInputActionValue& Value);
-			
+
 
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
+
 	// To add mapping context
 	virtual void BeginPlay();
 

@@ -19,7 +19,7 @@ AMyProjectCharacter::AMyProjectCharacter()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
-		
+
 	// Don't rotate when the controller rotates. Let that just affect the camera.
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
@@ -63,6 +63,8 @@ AMyProjectCharacter::AMyProjectCharacter()
 	stealthPoints = 1;
 
 	hasPunched = false;
+
+	attackSpeed = 1.0f;
 }
 
 void AMyProjectCharacter::BeginPlay()
@@ -87,7 +89,7 @@ void AMyProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 {
 	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent)) {
-		
+
 		//Jumping
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
@@ -120,7 +122,7 @@ void AMyProjectCharacter::Move(const FInputActionValue& Value)
 
 		// get forward vector
 		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	
+
 		// get right vector 
 		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
@@ -153,34 +155,34 @@ void AMyProjectCharacter::Shoot(const FInputActionValue& Value)
 	FActorSpawnParameters SpawnParams;
 
 	const bool CurrentValue = Value.Get<bool>();
-	if (CurrentValue) 
+	if (CurrentValue)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("firing bullet"));
 		GetWorld()->SpawnActor<ABullet>(BulletBP, SpawnTransform, SpawnParams);
 	}
-	
+
 }
 
-void AMyProjectCharacter::MeleePunch(const FInputActionValue& Value) 
+void AMyProjectCharacter::MeleePunch(const FInputActionValue& Value)
 {
 	const bool CurrentValue = Value.Get<bool>();
-	if (CurrentValue) 
+	if (CurrentValue)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("punching"));
 		hasPunched = true;
 	}
-	else 
+	else
 	{
 		hasPunched = false;
 	}
 }
 
-void AMyProjectCharacter::GainExperience(float _expAmount) 
+void AMyProjectCharacter::GainExperience(float _expAmount)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Player gaining experience for %f points"), _expAmount);
 	experiencePoints += _expAmount;
 
-	if (experiencePoints >= experienceToLevelUp) 
+	if (experiencePoints >= experienceToLevelUp)
 	{
 		++currentLevel;
 		experiencePoints -= experienceToLevelUp;
