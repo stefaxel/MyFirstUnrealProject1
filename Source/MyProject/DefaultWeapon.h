@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "DefaultItem.h"
 #include "DefaultWeapon.generated.h"
 
 UENUM(BlueprintType)
@@ -14,7 +15,7 @@ enum class EWeaponType : uint8
 };
 
 UCLASS()
-class MYPROJECT_API ADefaultWeapon : public AActor
+class MYPROJECT_API ADefaultWeapon : public ADefaultItem
 {
 	GENERATED_BODY()
 	

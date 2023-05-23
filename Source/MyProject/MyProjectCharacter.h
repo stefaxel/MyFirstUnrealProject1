@@ -6,12 +6,34 @@
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
 #include "DefaultWeapon.h"
+#include "DefaultItem.h"
 #include "MyProjectCharacter.generated.h"
+
+USTRUCT(BlueprintType)
+struct FInventory
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float weightLimit;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<ADefaultItem*> itemList;
+};
+
 
 UCLASS(config = Game)
 class AMyProjectCharacter : public ACharacter
 {
 	GENERATED_BODY()
+
+	/** Character experience*/
+	UFUNCTION(BlueprintCallable, Category = "Stats")
+	void GainExperience(float _expAmount);
+
+	/** Character experience*/
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void AddToInventory(ADefaultItem* _item);
 
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
@@ -44,9 +66,13 @@ class AMyProjectCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, Category = "Shooting")
 	TSubclassOf<class ABullet> BulletBP;
 
-	/** Shoot Input Action */
+	/** Punch Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* MeleePunchAction;
+
+	/** Equip Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* EquipAction;
 
 	/** Character Current Level*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
@@ -84,16 +110,20 @@ class AMyProjectCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack", meta = (AllowPrivateAccess = "true"))
 	bool hasPunched;
 
-	/** Character Stealth Points*/
-	UFUNCTION(BlueprintCallable, Category = "Stats")
-	void GainExperience(float _expAmount);
-
-	/** Character Experience Points*/
+	/** Character attack speed*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
 	float attackSpeed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon", meta = (AllowPrivateAccess = "true"))
 	ADefaultWeapon* currentWeapon;
+
+	/** Character Inventory*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory", meta = (AllowPrivateAccess = "true"))
+	FInventory inventory;
+
+	/** Determine if character is overlapping an item*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Items", meta = (AllowPrivateAccess = "true"))
+	bool isOverlappingItem;
 
 
 public:
@@ -113,6 +143,9 @@ protected:
 
 	/** Called for melee attack */
 	void MeleePunch(const FInputActionValue& Value);
+
+	/** Called for equipping item */
+	void EquipItem(const FInputActionValue& Value);
 
 
 protected:

@@ -65,6 +65,8 @@ AMyProjectCharacter::AMyProjectCharacter()
 	hasPunched = false;
 
 	attackSpeed = 1.0f;
+
+	isOverlappingItem = false;
 }
 
 void AMyProjectCharacter::BeginPlay()
@@ -177,6 +179,16 @@ void AMyProjectCharacter::MeleePunch(const FInputActionValue& Value)
 	}
 }
 
+void AMyProjectCharacter::EquipItem(const FInputActionValue& Value)
+{
+	const bool CurrentValue = Value.Get<bool>();
+	if (isOverlappingItem) {
+		if (CurrentValue) {
+			UE_LOG(LogTemp, Warning, TEXT("We picked up an item!"))
+		}
+	}
+}
+
 void AMyProjectCharacter::GainExperience(float _expAmount)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Player gaining experience for %f points"), _expAmount);
@@ -189,6 +201,11 @@ void AMyProjectCharacter::GainExperience(float _expAmount)
 		experienceToLevelUp += 500.0f;
 	}
 
+}
+
+void AMyProjectCharacter::AddToInventory(ADefaultItem* _item)
+{
+	inventory.itemList.Add(_item);
 }
 
 
