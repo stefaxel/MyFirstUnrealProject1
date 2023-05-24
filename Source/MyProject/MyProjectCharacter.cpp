@@ -207,7 +207,3 @@ void AMyProjectCharacter::AddToInventory(ADefaultItem* _item)
 {
 	inventory.itemList.Add(_item);
 }
-
-
-
-
